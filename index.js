@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
@@ -35,7 +34,6 @@ io.on("connection", (socket) => {
       const allUsers = await User.find();
 
       if (user && allUsers) {
-        // Emit the updated user data to all clients
         io.emit("userUpdated", {
             user: {
                 userId: user._id,

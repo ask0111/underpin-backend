@@ -17,7 +17,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 const io = socketIo(server, {
   cors: {
-    origin: process.env.FRONTEND_URI, // Client URL
+    origin: process.env.FRONTEND_URI,
     methods: ["GET", "POST"],
   },
 });
@@ -27,13 +27,11 @@ connectDB();
 io.on("connection", (socket) => {
   socket.on("clickBanana", async (playerId) => {
     try {
-      // Find user by ID and increment click count
       const user = await User.findByIdAndUpdate(
         playerId,
         { $inc: { clickCount: 1 } },
-        { new: true } // Return updated document
+        { new: true } 
       );
-
       const allUsers = await User.find();
 
       if (user && allUsers) {
